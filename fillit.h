@@ -1,26 +1,28 @@
 #ifndef FILLIT_H
 # define FILLIT_H
 
-#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include "libft/includes/libft.h"
 
 /*
-** Listan structi.
+** Linked list struct.
+** Each member of the list has two dimensional string,
+** char c, which is char tetrimino is made of and next.
 */
 
 typedef struct		s_list
 {
+	char			c;
 	char			**data;
 	struct s_list	*next;
 }					t_list;
 
 /*
-** Structi johon tallennetaan tietoja inputin tarkistamiseen.
-** Pisteiden, hashtagien, newlinejen, viereisten palojen,
-** palojen kokonaismäärä ja luettujen merkkien määrä.
+** Struct that is used to validate the tetriminoes.
+** It holds the amount of dots, hashtags, newlines,
+** touching sides and count of pieces tetriminoes are made of.
 */
 
 typedef struct	s_valid
@@ -33,6 +35,10 @@ typedef struct	s_valid
 	int			count;
 }				t_valid;
 
+/*
+** Solving functions use these as coordinates for the field.
+*/
+
 typedef struct	s_point
 {
 	int			x;
@@ -40,44 +46,47 @@ typedef struct	s_point
 }				t_point;
 
 /*
-** validate.c funktiot
-** tarkistavat inputin
+** Validate.c
+** Makes sure the input is correct.
 */
 
-void 			init_struct(t_valid *ok);
-int 			validate_tetri(char *buf, t_valid *ok);
-int 			check_buf(char *buf, t_valid *ok, int ret);
 int 			validate_input(char **argv);
 
 /*
-** fillit.c funktiot
-** luovat linked listin
+** List.c
+** Used to create linked list.
 */
 
-char 			*mod_buf(char *buf, char c);
-t_list 			*newnode(char **data);
-void			append(t_list **tetris, char **data);
-int				save_list(t_list **tetris, char **argv);
+int				save_list(t_list **tmins, char **argv);
 
 /*
-** solverin funktiot
-** ratkaisevat ongelman
+** Solver.c
+** Functions used in recursive backtracking.
 */
 
 void			solver(t_list *tmins, char ***field, int size);
-int				make_field(char ***field, int field_size, int pieces);
+
+/*
+** Adders.c
+** Functions that help the solver by moving the position on the field
+** or finding potential empty spots for tetriminoes.
+*/
+
 int				find_empty_point(char ***field, t_point *point, int field_size);
 int				add_point(t_point *point, int field_size);
 
 /*
-** extrajutut
-** printer on vain testausta varten
+** Map_op.c
+** Functions for creating, freeing and printing the field.
 */
 
-void			printer(t_list *tetris);
-void			put_usage_message();
 void			print_field(char ***field);
-char			*ft_strset(char value, size_t num);
-int			buf_helper(char *buf, t_valid *ok, int i);
+int				make_field(char ***field, int field_size, int pieces);
+
+/*
+** Extras
+*/
+
+void			put_usage_message();
 
 #endif
