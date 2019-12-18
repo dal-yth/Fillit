@@ -12,7 +12,7 @@
 
 NAME = fillit
 
-SRCS = list.c solver.c validate.c main.c map_op.c
+SRCS = list.c solver.c validate.c main.c map_op.c ft_free.c
 
 OBJ = $(SRCS:.c=.o)
 

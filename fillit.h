@@ -76,4 +76,6 @@ void			put_usage_message();
 void			print_field(char ***field);
 char			*ft_strset(char value, size_t num);
 
+void			ft_free(t_list *t_mins, char **field);
+
 #endif

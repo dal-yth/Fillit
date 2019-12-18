@@ -1,6 +1,29 @@
 #include "fillit.h"
 
 /*
+** The function creates a new string of size num, and allocates it with
+** value. The fresh string is returned.
+*/
+
+char	*ft_strset(char value, size_t num)
+{
+	unsigned int	i;
+	char			*returnable;
+
+	i = 0;
+	if ((returnable = (char*)malloc(sizeof(char) * (num + 1))) != NULL)
+	{
+		while (i < num)
+		{
+			returnable[i] = value;
+			i++;
+		}
+		returnable[i] = '\0';
+	}
+	return (returnable);
+}
+
+/*
 ** Printer funktion for the field;
 */
 
@@ -34,6 +57,7 @@ int		make_field(char ***field, int pieces, int grow)
 			free(field[0][i]);
 			i++;	
 		}
+		free(field[0]);
 	}
 	while (size * size < (pieces * 4))
 		size = size + 1;
@@ -48,3 +72,4 @@ int		make_field(char ***field, int pieces, int grow)
 	field[0][i] = NULL;
 	return(size);
 }
+

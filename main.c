@@ -20,22 +20,6 @@
 */
 
 /*
-** Testiprintteri linked listille
-*/
-
-void printer(t_list *tetris)
-{
-	while(tetris != NULL)
-	{
-		printf("%s\n", tetris->data[0]);
-		printf("%s\n", tetris->data[1]);
-		printf("%s\n", tetris->data[2]);
-		printf("%s\n", tetris->data[3]);
-		tetris = tetris->next;
-	}
-}
-
-/*
 ** funktio joka näyttää usagen
 */
 
@@ -66,7 +50,6 @@ int		main(int argc, char **argv)
 		return(0);
 	}
 	pieces = save_list(&tmins, argv);
-	printer(tmins);
 	printf("%d\n", pieces);
 	ft_putendl("all ok");
 	solver(tmins, &field, pieces);

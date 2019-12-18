@@ -1,29 +1,6 @@
 #include "fillit.h"
 
 /*
-** The function creates a new string of size num, and allocates it with
-** value. The fresh string is returned.
-*/
-
-char	*ft_strset(char value, size_t num)
-{
-	unsigned int	i;
-	char			*returnable;
-
-	i = 0;
-	if ((returnable = (char*)malloc(sizeof(char) * (num + 1))) != NULL)
-	{
-		while (i < num)
-		{
-			returnable[i] = value;
-			i++;
-		}
-		returnable[i] = '\0';
-	}
-	return (returnable);
-}
-
-/*
 ** The function takes as a parameter the field, the starting point in a struct
 ** that contains the x and y coordinates, and the field size. It writes the next
 ** empty point to pointed point pointer (that is a real sentence!) and return TRUE (1)

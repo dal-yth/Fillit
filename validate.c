@@ -155,5 +155,6 @@ int validate_input(char **argv)
 	close(fd);
 	if (ok->ret != 20)
 		return(0);
+	free(ok);
 	return(1);
 }
