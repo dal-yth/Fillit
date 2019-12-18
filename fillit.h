@@ -30,6 +30,7 @@ typedef struct	s_valid
 	int			newl;
 	int			sides;
 	int			ret;
+	int			count;
 }				t_valid;
 
 typedef struct	s_point
@@ -65,6 +66,8 @@ int				save_list(t_list **tetris, char **argv);
 
 void			solver(t_list *tmins, char ***field, int size);
 int				make_field(char ***field, int field_size, int pieces);
+int				find_empty_point(char ***field, t_point *point, int field_size);
+int				add_point(t_point *point, int field_size);
 
 /*
 ** extrajutut
