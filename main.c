@@ -52,12 +52,10 @@ int		main(int argc, char **argv)
 {
 	t_list			*tmins;
 	int 			pieces;
-	int 			i;
 	int				field_size;
 	char			**field;
 
 	tmins = NULL;
-	i = 0;
 	if (argc != 2)
 	{
 		put_usage_message();
@@ -73,12 +71,6 @@ int		main(int argc, char **argv)
 	printf("%d\n", pieces);
 	ft_putendl("all ok");
 	field_size = solver(tmins, &field);
-	i = 0;
-	while (field[i] != NULL)
-	{
-		ft_putstr(field[i]);
-		i++;
-	}
-
+	print_field(&field);
 	return(0);
 }
