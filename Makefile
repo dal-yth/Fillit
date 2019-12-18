@@ -32,11 +32,8 @@ plain:
 	clang -o $(NAME) main.o $(OBJ) -I libft/includes -L libft/ -lft
 
 debug:
-	clang -I libft/includes -o fillit.o -c fillit.c -g
-	clang -I libft/includes -o solver.o -c solver.c -g
-	clang -I libft/includes -o validate.o -c validate.c -g
-	clang -I libft/includes -o main.o -c main.c -g
-	clang -o $(NAME) main.o $(OBJ) -I libft/includes -L libft/ -lft -g
+	gcc -c $(SRCS) -I $(INC) -g
+	gcc -o $(NAME) $(OBJ) -g -L libft/ -lft
 
 clean:
 	rm -rf $(OBJ)
