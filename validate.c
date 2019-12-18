@@ -16,7 +16,7 @@
 ** Initializes t_valid struct ok to zero values.
 */
 
-void	init_struct(t_valid *ok)
+static void	init_struct(t_valid *ok)
 {
 	ok->dot = 0;
 	ok->hash = 0;
@@ -33,7 +33,7 @@ void	init_struct(t_valid *ok)
 ** false and 0 is returned.
 */
 
-int		validate_tetri(char *buf, t_valid *ok)
+static int	validate_tetri(char *buf, t_valid *ok)
 {
 	int i;
 
@@ -65,7 +65,7 @@ int		validate_tetri(char *buf, t_valid *ok)
 ** if they are in the correct position as determined by ok->count.
 */
 
-int		buf_helper(char *buf, t_valid *ok, int i)
+static int	buf_helper(char *buf, t_valid *ok, int i)
 {
 	if (buf[i] != '.' && buf[i] != '#' && buf[i] != '\n')
 		return (0);
@@ -90,7 +90,7 @@ int		buf_helper(char *buf, t_valid *ok, int i)
 ** there is an extra newline, that is not found after the last piece.
 */
 
-int		check_buf(char *buf, t_valid *ok, int ret)
+static int	check_buf(char *buf, t_valid *ok, int ret)
 {
 	int i;
 
@@ -126,7 +126,7 @@ int		check_buf(char *buf, t_valid *ok, int ret)
 ** the last reading was correct.
 */
 
-int		validate_input(char **argv)
+int			validate_input(char **argv)
 {
 	int		fd;
 	int		tcount;
