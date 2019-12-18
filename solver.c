@@ -183,9 +183,9 @@ int		set_piece(char ***field,t_list *tmins,int field_size, t_point *point)
 	t_point	map;
 	t_point start;
 	int		blocks;
-	int		i;
+	//int		i;
 
-	i = 0;
+	//i = 0;
 	start.y = 0;
 	start.x = 0;
 	piece.y = 0;
@@ -193,64 +193,64 @@ int		set_piece(char ***field,t_list *tmins,int field_size, t_point *point)
 	map.y = point->y;
 	map.x = point->x;
 	blocks = 0;
-	ft_putendl("set piece 1");
+	//ft_putendl("set piece 1");
 	while (tmins->data[start.y][start.x] == '.')
 		add_point(&start, 4);
-	ft_putendl("set piece 2");
+	//ft_putendl("set piece 2");
 	while (map.y < field_size)
 	{
-		ft_putendl("set piece 2.5");
+		//ft_putendl("set piece 2.5");
 		while (tmins->data[piece.y][piece.x] == '.')
 		{
 			if (!(add_point(&piece, 4)))
 				break;
 		}
-		ft_putendl("set piece 3");
+		//ft_putendl("set piece 3");
 		while (tmins->data[piece.y][piece.x] != '.' && blocks < 4)
 		{
-			ft_putendl("set piece 4");
-				ft_putnbr(map.y);
-				ft_putstr(", ");
-				ft_putnbr(map.x);
-				ft_putstr(", ");
-				ft_putnbr(piece.x);
-				ft_putstr(", ");
-				ft_putnbr(start.x);
-				ft_putstr("\n");
+			//ft_putendl("set piece 4");
+			//	ft_putnbr(map.y);
+			//	ft_putstr(", ");
+			//	ft_putnbr(map.x);
+			//	ft_putstr(", ");
+			//	ft_putnbr(piece.x);
+			//	ft_putstr(", ");
+			//	ft_putnbr(start.x);
+			//	ft_putstr("\n");
 			if ((map.x + piece.x - start.x) < 0 || (map.x + piece.x - start.x) >= field_size || field[0][map.y][map.x + piece.x - start.x] != '.')
 			{
-				ft_putendl("set piece 5");
+				//ft_putendl("set piece 5");
 				remove_piece(field, tmins, field_size);
 				return (FALSE);
 			}
-			ft_putendl("set piece 6");
+			//ft_putendl("set piece 6");
 			field[0][map.y][map.x + piece.x - start.x] = tmins->data[piece.y][piece.x];
-			while (field[0][i] != NULL)
-			{
-				ft_putstr(field[0][i]);
-				i++;
-			}
-			i = 0;
-			ft_putendl("set piece 7");
+			//while (field[0][i] != NULL)
+			//{
+			//	ft_putstr(field[0][i]);
+			//	i++;
+			//}
+			//i = 0;
+			//ft_putendl("set piece 7");
 			add_point(&piece, 4);
 			blocks++;
 		}
 		map.y++;
 		map.x = point->x;
-		ft_putendl("set piece 8");
+		//ft_putendl("set piece 8");
 	}
 	if (blocks != 4)
 	{
-		ft_putendl("set piece 9");
+		//ft_putendl("set piece 9");
 		remove_piece(field, tmins, field_size);
 		return (FALSE);
 	}
-	ft_putendl("set piece 10");
-	while (field[0][i] != NULL)
-	{
-		ft_putstr(field[0][i]);
-		i++;
-	}
+	//ft_putendl("set piece 10");
+	//while (field[0][i] != NULL)
+	//{
+	//	ft_putstr(field[0][i]);
+	//	i++;
+	//}
 	return (TRUE);
 }
 
@@ -268,36 +268,36 @@ int		set_piece(char ***field,t_list *tmins,int field_size, t_point *point)
 ** continues to return true. In other cases removes the piece set and goes to the
 ** next point. Continues then at the beginning of while.
 */
-int		recursive_solver(char ***field, t_list *tmins, int field_size, t_point *point)
+int		recursive_solver(char ***field, t_list *tmins, int field_size)
 {
 	int		returnable;
 	int		i;
+	t_point point;
 
-	//point->x = 0;
-	//point->y = 0;
+	point.x = 0;
+	point.y = 0;
 	i = 0;
-	while (find_empty_point(field, point, field_size))
+	if (tmins == NULL)
+		return (TRUE);
+	while (find_empty_point(field, &point, field_size))
 	{	
-		ft_putendl("recursive_solver 1");
-		while(!(set_piece(field, tmins, field_size, point)))
+		//ft_putendl("recursive_solver 1");
+		while(!(set_piece(field, tmins, field_size, &point)))
 		{
-			ft_putendl("recursive_solver 2");
-			if (!(add_point(point, field_size)) || !(find_empty_point(field, point, field_size)))
+			//ft_putendl("recursive_solver 2");
+			if (!(add_point(&point, field_size)) || !(find_empty_point(field, &point, field_size)))
 				return (FALSE);
 		}
-		ft_putendl("recursive_solver 3");
-		if (tmins->next == NULL)
-			return (TRUE);
-		ft_putendl("recursive_solver 4");
-		returnable = recursive_solver(field, tmins->next, field_size, point);
-		ft_putendl("recursive_solver 5");
+		//ft_putendl("recursive_solver 3");
+		returnable = recursive_solver(field, tmins->next, field_size);
+		//ft_putendl("recursive_solver 5");
 		if(returnable == TRUE)
 			return(TRUE);
 		else
 		{
-			ft_putendl("recursive_solver 6");
+			//ft_putendl("recursive_solver 6");
 			remove_piece(field, tmins, field_size);
-			if (!(add_point(point, field_size)))
+			if (!(add_point(&point, field_size)))
 				return (FALSE);
 		}
 	}
@@ -313,20 +313,15 @@ int		recursive_solver(char ***field, t_list *tmins, int field_size, t_point *poi
 int		solver(t_list *tmins, char ***field)
 {
 	int		field_size;
-	t_point point;
 
-	point.x = 0;
-	point.y = 0;
 	field_size = 2;
 	field_size = make_field(field, field_size);
-	while (!(recursive_solver(field, tmins, field_size, &point)))
+	while (!(recursive_solver(field, tmins, field_size)))
 	{
-		ft_putnbr(field_size);
-		ft_putendl("solver2");
+		//ft_putnbr(field_size);
+		//ft_putendl("solver2");
 		field_size = make_field(field, (field_size + 1));
-		point.x = 0;
-		point.y = 0;
 	}
-	ft_putendl("solver4");
+	//ft_putendl("solver4");
 	return (field_size);
 }
