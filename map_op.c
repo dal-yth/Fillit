@@ -57,7 +57,7 @@ int		make_field(char ***field, int pieces, int grow)
 			free(field[0][i]);
 			i++;	
 		}
-		free(field[0]);
+		free(field);
 	}
 	while (size * size < (pieces * 4))
 		size = size + 1;
