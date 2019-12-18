@@ -63,8 +63,8 @@ int				save_list(t_list **tetris, char **argv);
 ** ratkaisevat ongelman
 */
 
-int				solver(t_list *tmins, char ***field);
-int				make_field(char ***field, int field_size);
+int				solver(t_list *tmins, char ***field, int pieces);
+int				make_field(char ***field, int field_size, int pieces);
 
 /*
 ** extrajutut
@@ -73,5 +73,7 @@ int				make_field(char ***field, int field_size);
 
 void			printer(t_list *tetris);
 void			put_usage_message();
+void			print_field(char ***field);
+char			*ft_strset(char value, size_t num);
 
 #endif
