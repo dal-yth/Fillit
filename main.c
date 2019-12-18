@@ -70,7 +70,7 @@ int		main(int argc, char **argv)
 	printer(tmins);
 	printf("%d\n", pieces);
 	ft_putendl("all ok");
-	field_size = solver(tmins, &field);
+	field_size = solver(tmins, &field, pieces);
 	print_field(&field);
 	return(0);
 }
