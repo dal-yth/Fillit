@@ -72,21 +72,26 @@ int		make_field(char ***field, int field_size)
 */
 int		find_empty_point(char ***field, t_point *point, int field_size)
 {
-	while(field[0][point->x][point->y] != '.')
+	//ft_putendl("find empty point start");
+	while(field[0][point->y][point->x] != '.')
 	{
-		if (point->y == field_size)
+		if (point->x == field_size)
 		{
-			if (point->x == field_size)
+			if (point->y == field_size)
+			{
+				//ft_putendl("find empty point false end");
 				return(FALSE);
+			}
 			else 
 			{
-				point->x++;
-				point->y = 0;
+				point->y++;
+				point->x = 0;
 			}
 		}
 		else
-			point->y++;
+			point->x++;
 	}
+	//ft_putendl("find empty point true end");
 	return(TRUE);
 }
 
@@ -99,10 +104,14 @@ int		find_empty_point(char ***field, t_point *point, int field_size)
 */
 int		add_point(t_point *point, int field_size)
 {
+	//ft_putendl("add_point start");
 	if (point->x == field_size - 1)
 	{
 		if (point->y == field_size - 1)
+		{	
+			//ft_putendl("add_point false end");
 			return(FALSE);
+		}
 		else 
 		{
 			point->y++;
@@ -111,6 +120,7 @@ int		add_point(t_point *point, int field_size)
 	}
 	else
 		point->x++;
+	//ft_putendl("add_point true end");
 	return (TRUE);
 }
 
@@ -195,35 +205,38 @@ int		set_piece(char ***field,t_point point,t_list *tmins,int field_size)
 		while (tmins->data[piece.y][piece.x] != '.')
 		{
 			ft_putendl("set piece 4");
-			ft_putendl("set piece 5");
+				ft_putnbr(map.y);
+				ft_putstr(", ");
 				ft_putnbr(map.x);
 				ft_putstr(", ");
 				ft_putnbr(piece.x);
 				ft_putstr(", ");
 				ft_putnbr(start.x);
 				ft_putstr("\n");
-			if (map.x < (piece.x - start.x) || field[0][map.y][map.x + piece.x - start.x] != '.')
+			if ((map.x + piece.x - start.x) < 0 || (map.x + piece.x - start.x) >= field_size || field[0][map.y][map.x + piece.x - start.x] != '.')
 			{
-					while (field[0][i] != NULL)
-					{
-						ft_putstr(field[0][i]);
-						i++;
-					}
+				ft_putendl("set piece 5");
 				remove_piece(field, tmins, field_size);
 				return (FALSE);
 			}
 			ft_putendl("set piece 6");
 			field[0][map.y][map.x + piece.x - start.x] = tmins->data[piece.x][piece.y];
+			while (field[0][i] != NULL)
+			{
+				ft_putstr(field[0][i]);
+				i++;
+			}
 			ft_putendl("set piece 7");
-			blocks++;
 			add_point(&piece, 4);
-			map.y++;
-			map.x = 0;
-
+			blocks++;
 		}
+		map.y++;
+		map.x = 0;
+		ft_putendl("set piece 8");
 	}
 	if (blocks != 4)
 	{
+		ft_putendl("set piece 9");
 		remove_piece(field, tmins, field_size);
 		return (FALSE);
 	}
@@ -303,7 +316,7 @@ int		solver(t_list *tmins, char ***field)
 	point.y = 0;
 	field_size = 2;
 	field_size = make_field(field, field_size);
-	if (!(recursive_solver(field, tmins, field_size, point)))
+	while (!(recursive_solver(field, tmins, field_size, point)))
 	{
 		ft_putendl("solver2");
 		field_size = make_field(field, (field_size + 1));
