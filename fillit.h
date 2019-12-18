@@ -75,7 +75,6 @@ void			printer(t_list *tetris);
 void			put_usage_message();
 void			print_field(char ***field);
 char			*ft_strset(char value, size_t num);
-
-void			ft_free(t_list *t_mins, char **field);
+int			buf_helper(char *buf, t_valid *ok, int i);
 
 #endif
