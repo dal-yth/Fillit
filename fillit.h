@@ -68,8 +68,8 @@ void			solver(t_list *tmins, char ***field, int size);
 
 /*
 ** Adders.c
-** Functions that help the solver by moving the position on the field
-** or finding potential empty spots for tetriminoes.
+** Add_point moves the position of chosen field(field, tetrimino).
+** Find_empty_point looks for the next possible position for tetrimino.
 */
 
 int				find_empty_point(char ***field, t_point *point, int field_size);
