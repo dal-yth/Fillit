@@ -23,16 +23,10 @@ $(NAME):
 	gcc -c -Wall -Wextra -Werror $(SRC) -Iincludes
 	ar rc $(NAME) $(OSRC)
 
-main: mclean all
-	gcc main.c -o megalomain -L. -lft
-
 clean:
 	rm -f $(OSRC)
 
 fclean: clean
 	rm -f $(NAME)
-
-mclean: fclean
-	rm -f supermain
 
 re: fclean all
