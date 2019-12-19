@@ -35,28 +35,35 @@ static char		*mod_buf(char *buf, char c)
 /*
 ** Finds which character the current tetrimino has and returns it.
 ** The char is then saved in newnode function to the new member of the list.
+** Also saves the y, x position of char in tetrimino field.
 */
 
-static char		find_char(char **data)
+static void		find_char(t_list *new)
 {
 	int	i;
 	int	j;
 
 	i = 0;
 	j = 0;
-	while (data[i])
+	while (new->data[i])
 	{
-		while (data[i][j])
+		while (new->data[i][j])
 		{
-			if (data[i][j] != '.')
-				return (data[i][j]);
+			if (new->data[i][j] != '.')
+			{
+				new->c = new->data[i][j];
+				new->y = i;
+				new->x = j;
+				return;
+			}
 			j = j + 1;
 		}
 		j = 0;
 		i = i + 1;
 	}
-	return (0);
+	return;
 }
+
 
 /*
 ** Thank you Jaakko.
@@ -83,7 +90,7 @@ static t_list	*newnode(char **data)
     }
 	new->data[i] = NULL;
 	new->next = NULL;
-	new->c = find_char(new->data);
+	find_char(new);
 	return (new);
 }
 
