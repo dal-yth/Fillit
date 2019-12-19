@@ -16,7 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
-# include "libft/includes/libft.h"
+# include "libft/libft.h"
 
 /*
 ** Linked list struct.
