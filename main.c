@@ -51,7 +51,7 @@ int		main(int argc, char **argv)
 	}
 	if (!(validate_input(argv)))
 	{
-		write(1, "invalid input", 13);
+		write(1, "error\n", 6);
 		return (0);
 	}
 	pieces = save_list(&tmins, argv);
