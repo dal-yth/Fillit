@@ -14,6 +14,8 @@
 
 typedef struct		s_list
 {
+	int				x;
+	int				y;
 	char			c;
 	char			**data;
 	struct s_list	*next;
