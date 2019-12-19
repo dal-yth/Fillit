@@ -7,7 +7,7 @@
 void	put_usage_message()
 {
 	ft_putendl("Usage: fillit input_file");
-	ft_putendl("    input_file: File containing tetrimino pieces. Input file should follow these rules:");
+	ft_putendl("    Input_file: File containing tetrimino pieces. Input file should follow these rules:");
 	ft_putendl("    Each tetrimino is precisely 4 lines of 4 characters, each followed by a new line");
 	ft_putendl("    Each character must be either a block character('#') or an empty character ('.')");
 	ft_putendl("    Your file should contain between 1 and 26 Tetriminos.");
