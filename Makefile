@@ -16,24 +16,14 @@ SRCS = list.c solver.c validate.c main.c map_op.c adders.c
 
 OBJ = $(SRCS:.c=.o)
 
-INC = libft/includes/libft.h fillit.h
+INC = fillit.h
 
 all: $(NAME)
 
 $(NAME):
+	cd libft && make re
 	gcc -c -Wall -Wextra -Werror $(SRCS) -I $(INC)
-	gcc -Wall -Wextra -Werror -o $(NAME) $(OBJ) -L libft/ -lft
-
-plain:
-	clang -I libft/includes -o fillit.o -c fillit.c
-	clang -I libft/includes -o solver.o -c solver.c
-	clang -I libft/includes -o validate.o -c validate.c
-	clang -I libft/includes -o main.o -c main.c
-	clang -o $(NAME) main.o $(OBJ) -I libft/includes -L libft/ -lft
-
-debug:
-	gcc -c $(SRCS) -I $(INC) -g
-	gcc -o $(NAME) $(OBJ) -g -L libft/ -lft
+	gcc -Wall -Wextra -Werror -o $(NAME) $(OBJ) libft/libft.a
 
 clean:
 	rm -rf $(OBJ)
