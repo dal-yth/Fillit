@@ -19,7 +19,7 @@
 ** tmins->c character to dots.
 */
 
-static int	remove_piece(char ***field, t_list *tmins, int field_size)
+static int		remove_piece(char ***field, t_list *tmins, int field_size)
 {
 	t_point	point;
 
@@ -35,7 +35,16 @@ static int	remove_piece(char ***field, t_list *tmins, int field_size)
 	return (TRUE);
 }
 
-static int	piece(char	***field,t_list tmins,t_points ps,t_point piece)
+static t_points	set_piece_init(t_list *tmins, t_point *point)
+{
+	static t_points	returnable;
+
+	returnable.sx = tmins->x;
+	returnable.sy = tmins->y;
+	returnable.mapy = point->y - 1;
+	returnable.mapx = point->x;
+	return (returnable);
+}
 
 /*
 ** Takes as a parameter the field, point where the piece is to be set, the piece
@@ -49,40 +58,32 @@ static int	piece(char	***field,t_list tmins,t_points ps,t_point piece)
 ** added and return FALSE.
 */
 
-static int	set_piece(char ***field, t_list *tmins, int f_size, t_point *point)
+static int		set_piece(char ***field, t_list *tmins, int f_size, t_point *p)
 {
 	t_points	ps;
-	t_point		piece;
+	t_point		pc;
 	int			blocks;
 
-	ps.sy = tmins->y;
-	ps.sx = tmins->x;
-	piece.y = tmins->y;
-	piece.x = tmins->x;
-	ps.my = point->y;
+	ps = set_piece_init(tmins, p);
+	pc.x = tmins->x;
+	pc.y = tmins->y;
 	blocks = 0;
-	while (ps.my < f_size)
+	while (++ps.mapy < f_size)
 	{
-		ps.mx = point->x;
-		while (tmins->data[piece.y][piece.x] == '.')
-		{
-			if (!(add_point(&piece, 4)))
+		while (tmins->data[pc.y][pc.x] == '.')
+			if (!(add_point(&pc, 4)))
 				break ;
-		}
-		while (tmins->data[piece.y][piece.x] != '.' && blocks < 4)
+		while (tmins->data[pc.y][pc.x] != '.' && blocks < 4)
 		{
-			if ((ps.mx + piece.x - ps.sx) < 0 || (ps.mx + piece.x - ps.sx)
-				>= f_size || field[0][ps.my][ps.mx + piece.x - ps.sx] != '.')
+			if ((ps.mapx + pc.x - ps.sx) < 0 || (ps.mapx + pc.x - ps.sx)
+			>= f_size || field[0][ps.mapy][ps.mapx + pc.x - ps.sx] != '.')
 				return (FALSE);
-			field[0][ps.my][points.mx + piece.x - ps.sx] = tmins->data[piece.y][piece.x];
-			add_point(&piece, 4);
+			field[0][ps.mapy][ps.mapx + pc.x - ps.sx] = tmins->data[pc.y][pc.x];
+			add_point(&pc, 4);
 			blocks++;
 		}
-		points.my++;
 	}
-	if (blocks != 4)
-		return (FALSE);
-	return (TRUE);
+	return (blocks != 4) ? FALSE : TRUE;
 }
 
 /*
@@ -92,15 +93,15 @@ static int	set_piece(char ***field, t_list *tmins, int f_size, t_point *point)
 ** values for x and y on the field (set to 0, 0 when first called).
 ** First, finds and empty point where no block has been set. Then tries to set
 ** the next block to it. If this fails, finds the next empty point. If there is
-** no next empty point, returns false (meaning the field could not be solved this
-** way). If all the blocks has been set (tmins == NULL), returns true,
-** meaning the right answer has been found. When the piece has has been set, calls
-** on itself with the next piece. If this operation returns true, the function
-** continues to return true. In other cases removes the piece set and goes to the
-** next point. Continues then at the beginning of while loop.
+** no next empty point, returns false (meaning the field could not be solved
+** this way). If all the blocks has been set (tmins == NULL), returns true,
+** meaning the right answer has been found. When the piece has has been set,
+** calls on itself with the next piece. If this operation returns true, the
+** function continues to return true. In other cases removes the piece set and
+** goes to the next point. Continues then at the beginning of while loop.
 */
 
-static int	recursive_solver(char ***field, t_list *tmins, int field_size)
+static int		recursive_solver(char ***field, t_list *tmins, int field_size)
 {
 	t_point point;
 
@@ -109,11 +110,12 @@ static int	recursive_solver(char ***field, t_list *tmins, int field_size)
 	if (tmins == NULL)
 		return (TRUE);
 	while (find_empty_point(field, &point, field_size))
-	{	
+	{
 		while (!(set_piece(field, tmins, field_size, &point)))
 		{
 			remove_piece(field, tmins, field_size);
-			if (!(add_point(&point, field_size)) || !(find_empty_point(field, &point, field_size)))
+			if (!(add_point(&point, field_size))
+				|| !(find_empty_point(field, &point, field_size)))
 				return (FALSE);
 		}
 		if (!(recursive_solver(field, tmins->next, field_size)))
@@ -135,7 +137,7 @@ static int	recursive_solver(char ***field, t_list *tmins, int field_size)
 ** the solution is found.
 */
 
-void		solver(t_list *tmins, char ***field, int pieces)
+void			solver(t_list *tmins, char ***field, int pieces)
 {
 	int		grow;
 	int		size;

@@ -67,8 +67,10 @@ typedef struct		s_points
 {
 	int				sx;
 	int				sy;
-	int				mx;
-	int				my;
+	int				mapx;
+	int				mapy;
+	int				px;
+	int				py;
 }					t_points;
 
 /*
