@@ -21,8 +21,8 @@ INC = libft/includes/libft.h fillit.h
 all: $(NAME)
 
 $(NAME):
-	gcc -c $(SRCS) -I $(INC)
-	gcc -o $(NAME) $(OBJ) -L libft/ -lft
+	gcc -c -Wall -Wextra -Werror $(SRCS) -I $(INC)
+	gcc -Wall -Wextra -Werror -o $(NAME) $(OBJ) -L libft/ -lft
 
 plain:
 	clang -I libft/includes -o fillit.o -c fillit.c

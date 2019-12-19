@@ -60,6 +60,18 @@ typedef struct		s_point
 }					t_point;
 
 /*
+** Just helping to make add_piece shorter
+*/
+
+typedef struct		s_points
+{
+	int				sx;
+	int				sy;
+	int				mx;
+	int				my;
+}					t_points;
+
+/*
 ** Validate.c
 ** Makes sure the input is correct.
 */

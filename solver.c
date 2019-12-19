@@ -18,6 +18,7 @@
 ** It then goes through the field and chances all blocks with matching
 ** tmins->c character to dots.
 */
+
 static int	remove_piece(char ***field, t_list *tmins, int field_size)
 {
 	t_point	point;
@@ -34,6 +35,8 @@ static int	remove_piece(char ***field, t_list *tmins, int field_size)
 	return (TRUE);
 }
 
+static int	piece(char	***field,t_list tmins,t_points ps,t_point piece)
+
 /*
 ** Takes as a parameter the field, point where the piece is to be set, the piece
 ** to be set and the field size. Return an integer with value TRUE (1) if it was
@@ -46,52 +49,39 @@ static int	remove_piece(char ***field, t_list *tmins, int field_size)
 ** added and return FALSE.
 */
 
-static int	set_piece(char ***field, t_list *tmins, int field_size, t_point *point)
+static int	set_piece(char ***field, t_list *tmins, int f_size, t_point *point)
 {
-	t_point	piece;
-	t_point	map;
-	t_point start;
-	int		blocks;
+	t_points	ps;
+	t_point		piece;
+	int			blocks;
 
-	start.y = tmins->y;
-	start.x = tmins->x;
+	ps.sy = tmins->y;
+	ps.sx = tmins->x;
 	piece.y = tmins->y;
 	piece.x = tmins->x;
-	//start.y = 0;
-	//start.x = 0;
-	//piece.y = 0;
-	//piece.x = 0;
-	map.y = point->y;
-	map.x = point->x;
+	ps.my = point->y;
 	blocks = 0;
-	//while (tmins->data[start.y][start.x] == '.')
-	//	add_point(&start, 4);
-	while (map.y < field_size)
+	while (ps.my < f_size)
 	{
+		ps.mx = point->x;
 		while (tmins->data[piece.y][piece.x] == '.')
 		{
 			if (!(add_point(&piece, 4)))
-				break;
+				break ;
 		}
 		while (tmins->data[piece.y][piece.x] != '.' && blocks < 4)
 		{
-			if ((map.x + piece.x - start.x) < 0 || (map.x + piece.x - start.x) >= field_size || field[0][map.y][map.x + piece.x - start.x] != '.')
-			{
-				remove_piece(field, tmins, field_size);
+			if ((ps.mx + piece.x - ps.sx) < 0 || (ps.mx + piece.x - ps.sx)
+				>= f_size || field[0][ps.my][ps.mx + piece.x - ps.sx] != '.')
 				return (FALSE);
-			}
-			field[0][map.y][map.x + piece.x - start.x] = tmins->data[piece.y][piece.x];
+			field[0][ps.my][points.mx + piece.x - ps.sx] = tmins->data[piece.y][piece.x];
 			add_point(&piece, 4);
 			blocks++;
 		}
-		map.y++;
-		map.x = point->x;
+		points.my++;
 	}
 	if (blocks != 4)
-	{
-		remove_piece(field, tmins, field_size);
 		return (FALSE);
-	}
 	return (TRUE);
 }
 
@@ -122,6 +112,7 @@ static int	recursive_solver(char ***field, t_list *tmins, int field_size)
 	{	
 		while (!(set_piece(field, tmins, field_size, &point)))
 		{
+			remove_piece(field, tmins, field_size);
 			if (!(add_point(&point, field_size)) || !(find_empty_point(field, &point, field_size)))
 				return (FALSE);
 		}
