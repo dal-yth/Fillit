@@ -26,10 +26,12 @@ $(NAME):
 	gcc -Wall -Wextra -Werror -o $(NAME) $(OBJ) libft/libft.a
 
 clean:
+	cd libft && make clean
 	rm -rf $(OBJ)
 	rm -rf *~
 
 fclean: clean
+	cd libft && rm -rf libft.a
 	rm -rf $(NAME)
 
 re: fclean all
