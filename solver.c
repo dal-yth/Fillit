@@ -53,15 +53,19 @@ static int	set_piece(char ***field, t_list *tmins, int field_size, t_point *poin
 	t_point start;
 	int		blocks;
 
-	start.y = 0;
-	start.x = 0;
-	piece.y = 0;
-	piece.x = 0;
+	start.y = tmins->y;
+	start.x = tmins->x;
+	piece.y = tmins->y;
+	piece.x = tmins->x;
+	//start.y = 0;
+	//start.x = 0;
+	//piece.y = 0;
+	//piece.x = 0;
 	map.y = point->y;
 	map.x = point->x;
 	blocks = 0;
-	while (tmins->data[start.y][start.x] == '.')
-		add_point(&start, 4);
+	//while (tmins->data[start.y][start.x] == '.')
+	//	add_point(&start, 4);
 	while (map.y < field_size)
 	{
 		while (tmins->data[piece.y][piece.x] == '.')
