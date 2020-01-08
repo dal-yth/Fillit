@@ -1,6 +1,6 @@
 # fillit
 
-Our implementation of the fillit project in programming langueage c. The objective of the project was to make a tetris piece
+Our implementation of the fillit project in programming language c. The objective of the project was to make a tetris piece
 solver. The solver will calculate the smallest possible square to fit the given pieces and then print the solution. The folder
 fillit_tests includes files with different tetris piece combinations to try with the solver.
 
